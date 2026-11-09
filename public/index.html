@@ -1,1 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Downloader — Unduh Video TikTok, Douyin &amp; Sosmed Tanpa Watermark</title>
+<meta name="description" content="Tempel link TikTok, Douyin, Instagram, YouTube, X, Facebook dan lainnya, lalu unduh videonya tanpa watermark. Gratis, tanpa login.">
+<style>
+:root{--bg:#0b0f19;--card:#131a2a;--card2:#1a2338;--text:#eef2fb;--muted:#9aa7c2;--line:#26324e;--acc:#22c55e;--acc2:#3b82f6;--warn:#f59e0b;--err:#ef4444}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.55}
+a{color:#7cc4ff}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+header{text-align:center;padding:28px 0 8px}
+.logo{font-size:44px}
+h1{font-size:28px;line-height:1.25;margin:10px 0 6px}
+.sub{color:var(--muted);font-size:15px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-top:20px}
+label{display:block;font-weight:700;margin-bottom:8px}
+textarea{width:100%;min-height:84px;resize:vertical;background:#0d1322;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:15px;font-family:inherit}
+textarea:focus{outline:2px solid var(--acc2);border-color:var(--acc2)}
+.detect{margin-top:10px;font-size:14px;min-height:22px}
+.detect b{color:var(--acc)}
+.detect.plat{color:var(--acc);font-weight:700}
+.btnrow{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+button{cursor:pointer;border:0;border-radius:12px;padding:12px 20px;font-size:15px;font-weight:700}
+.btn-main{background:var(--acc);color:#04160a;flex:1;min-width:180px}
+.btn-main:disabled{opacity:.55;cursor:wait}
+.btn-ghost{background:var(--card2);color:var(--text);border:1px solid var(--line)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;color:var(--muted)}
+.chip.on{border-color:var(--acc);color:var(--acc)}
+.examples{margin-top:12px;font-size:13px;color:var(--muted)}
+.examples button{background:none;border:0;color:#7cc4ff;padding:0;font-size:13px;font-weight:600;text-decoration:underline}
+#result{display:none}
+.result-head{display:flex;gap:14px;align-items:flex-start}
+.result-head img{width:96px;height:128px;object-fit:cover;border-radius:10px;background:#000}
+.result-head h2{font-size:17px;line-height:1.35;word-break:break-word}
+.meta{color:var(--muted);font-size:13px;margin-top:6px}
+.badge{display:inline-block;background:#0d2b1a;color:var(--acc);border:1px solid #1d4d31;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:700;margin-top:8px}
+.variants{display:grid;gap:10px;margin-top:16px}
+.var{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.var.t b{display:block;font-size:15px}
+.var.t span{color:var(--muted);font-size:13px}
+.var a{background:var(--acc2);color:#fff;text-decoration:none;font-weight:700;border-radius:10px;padding:9px 16px;font-size:14px;white-space:nowrap}
+.var a.proxy{display:block;background:none;color:#7cc4ff;font-size:12px;font-weight:400;padding:2px 0 0;text-align:right}
+.err{background:#2a1215;border:1px solid #5b1f24;color:#fca5a5;border-radius:12px;padding:14px;margin-top:16px;display:none}
+.loading{display:none;text-align:center;color:var(--muted);margin-top:16px}
+.spin{display:inline-block;width:18px;height:18px;border:3px solid var(--line);border-top-color:var(--acc);border-radius:50%;animation:sp 1s linear infinite;vertical-align:-4px;margin-right:8px}
+@keyframes sp{to{transform:rotate(360deg)}}
+h2.sec{font-size:19px;margin:28px 0 10px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.step b{font-size:22px;color:var(--acc)}
+.step p{color:var(--muted);font-size:14px;margin-top:6px}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:10px}
+summary{cursor:pointer;font-weight:700}
+details p{color:var(--muted);font-size:14px;margin-top:8px}
+.hist-item{display:flex;justify-content:space-between;gap:10px;background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:8px;font-size:14px}
+.hist-item button{background:none;border:0;color:#7cc4ff;font-weight:700;padding:0}
+.hist-item.del{color:var(--err)}
+footer{margin-top:36px;color:var(--muted);font-size:13px;text-align:center}
+.note{font-size:13px;color:var(--muted);margin-top:10px}
+@media(max-width:560px){h1{font-size:23px}.result-head img{width:72px;height:96px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="logo">⬇️</div>
+<h1>Social Media Video Downloader</h1>
+<p class="sub">Unduh video TikTok &amp; Douyin tanpa watermark — plus sosmed lainnya. Gratis, tanpa login, tanpa aplikasi.</p>
+</header>
 
+<div class="card">
+<label for="input">Tempel link video / teks share</label>
+<textarea id="input" placeholder="Contoh: https://vt.tiktok.com/ZSpU5TEGg/&#10;Atau tempel teks share Douyin apa adanya, link-nya akan terdeteksi otomatis."></textarea>
+<div class="detect" id="detect"></div>
+<div class="btnrow">
+<button class="btn-main" id="btnGo">⬇ Download</button>
+<button class="btn-ghost" id="btnPaste">📋 Tempel dari Clipboard</button>
+<button class="btn-ghost" id="btnClear">✕ Bersihkan</button>
+</div>
+<div class="chips" id="chips"></div>
+<div class="examples">Coba cepat:
+<button type="button" data-ex="https://vt.tiktok.com/ZSpU5TEGg/">Link TikTok</button> ·
+<button type="button" data-ex="4.61 复制打开抖音，看看野火姐姐真帅 https://v.douyin.com/UKq7Q2WfQfs/ h@B.tr Hip:/ 10/13:4pm">Teks share Douyin</button>
+</div>
+<div class="loading" id="loading"><span class="spin"></span>Memproses link…</div>
+<div class="err" id="error"></div>
+</div>
+
+<div class="card" id="result">
+<div class="result-head">
+<img id="thumb" alt="Thumbnail" src="">
+<div>
+<span class="badge" id="platBadge"></span>
+<h2 id="title"></h2>
+<div class="meta" id="meta"></div>
+</div>
+</div>
+<div class="variants" id="variants"></div>
+<p class="note">Kalau tombol utama gagal dibuka (403), coba link kecil “via proxy” di bawah tombol tersebut.</p>
+</div>
+
+<h2 class="sec">Cara pakai — 3 langkah</h2>
+<div class="steps">
+<div class="step"><b>1</b><p><strong>Salin link</strong> video dari aplikasi (TikTok/Douyin: ketuk Bagikan → Salin Tautan). Boleh tempel teks share-nya apa adanya.</p></div>
+<div class="step"><b>2</b><p><strong>Tempel di atas</strong> lalu tekan Download. Link terdeteksi otomatis, termasuk dari teks share Douyin yang berantakan.</p></div>
+<div class="step"><b>3</b><p><strong>Pilih kualitas</strong> — HD Tanpa Watermark, Tanpa Watermark, atau Audio/MP3 — lalu simpan ke perangkatmu.</p></div>
+</div>
+
+<h2 class="sec">Riwayat download</h2>
+<div class="card" style="margin-top:0">
+<div id="history"><p style="color:var(--muted);font-size:14px">Belum ada riwayat. Riwayat tersimpan di browser kamu saja (localStorage).</p></div>
+<div class="btnrow"><button class="btn-ghost" id="btnClearHist">Hapus semua riwayat</button></div>
+</div>
+
+<h2 class="sec">Pertanyaan umum (FAQ)</h2>
+<details><summary>Apakah gratis dan perlu login?</summary><p>Gratis dan tanpa login. Tempel link, pilih kualitas, unduh.</p></details>
+<details><summary>Apakah video TikTok/Douyin benar-benar tanpa watermark?</summary><p>Ya, untuk video publik. Server mengambil stream bersih yang memang disediakan platform (bukan menghapus watermark dari video ber-watermark).</p></details>
+<details><summary>Kenapa teks share Douyin yang panjang bisa langsung ditempel?</summary><p>Kolom input mendeteksi link di dalam teks secara otomatis — teks Cina, kode, dan tanggal di sekelilingnya diabaikan, hanya URL-nya yang dipakai.</p></details>
+<details><summary>Kenapa ada video yang gagal?</summary><p>Video privat, dihapus, dibatasi region, atau butuh login tidak bisa di-resolve. Platform juga sering mengubah sistemnya, jadi resolver kadang perlu diperbarui. Pesan error akan menjelaskan penyebabnya dengan jujur.</p></details>
+<details><summary>Platform apa saja yang didukung?</summary><p>Yang sudah bisa di-resolve penuh: <strong>TikTok dan Douyin</strong>. Platform lain (Instagram, YouTube, X, Facebook, Threads, Pinterest, Snapchat, Reddit, CapCut, Bilibili) masih dalam pengembangan — kalau ditempel, situs akan memberi tahu dengan jujur, bukan hasil palsu.</p></details>
+
+<footer>
+<p>Untuk penggunaan pribadi saja. Unduh hanya konten publik / konten milikmu sendiri, patuhi hukum hak cipta dan ketentuan layanan tiap platform. Situs ini tidak menyimpan video di server — file diunduh langsung dari server platform aslinya.</p>
+</footer>
+</div>
+
+<script>
+(function(){
+var PLATFORMS = ["TikTok","Douyin","Instagram","YouTube","X","Facebook","Threads","Pinterest","Snapchat","Reddit","CapCut","Bilibili"];
+var chipsEl = document.getElementById('chips');
+PLATFORMS.forEach(function(p,i){
+var s = document.createElement('span');
+s.className = 'chip' + (i < 2? ' on': '');
+s.textContent = (i < 2? '✓ ': '') + p;
+chipsEl.appendChild(s);
+});
+
+var input = document.getElementById('input');
+var detectEl = document.getElementById('detect');
+var btnGo = document.getElementById('btnGo');
+var loadingEl = document.getElementById('loading');
+var errorEl = document.getElementById('error');
+var resultEl = document.getElementById('result');
+
+function extractUrl(text){
+if(!text) return null;
+var m = text.match(/https?:\/\/[^\s"'<>\[\]{}|\\^`]+/i);
+if(m) return m[0].replace(/[)\]}>"'’”.,;:!?\u3002\uff0c\u3001]+$/,'');
+var hosts = ['tiktok\\.com','vt\\.tiktok\\.com','douyin\\.com','v\\.douyin\\.com','instagram\\.com','youtube\\.com','youtu\\.be','x\\.com','twitter\\.com','facebook\\.com','threads\\.net','pinterest\\.com','snapchat\\.com','reddit\\.com','capcut\\.com','bilibili\\.com','b23\\.tv'];
+var m2 = text.match(new RegExp('(?:^|[\\s"\'\\(\\[])((?:' + hosts.join('|') + ')\\/[^\\s"\'<>]+)','i'));
+if(m2) return 'https://' + m2[1].replace(/[)\]}>"'’”.,;:!?\u3002\uff0c\u3001]+$/,'');
+return null;
+}
+function platformOf(url){
+if(!url) return '';
+var u = url.toLowerCase();
+if(u.indexOf('tiktok.com') > -1) return 'TikTok';
+if(u.indexOf('douyin.com') > -1 || u.indexOf('iesdouyin.com') > -1) return 'Douyin';
+if(u.indexOf('instagram.com') > -1) return 'Instagram';
+if(u.indexOf('youtube.com') > -1 || u.indexOf('youtu.be') > -1) return 'YouTube';
+if(u.indexOf('x.com') > -1 || u.indexOf('twitter.com') > -1) return 'X';
+if(u.indexOf('facebook.com') > -1) return 'Facebook';
+if(u.indexOf('threads.net') > -1) return 'Threads';
+if(u.indexOf('pinterest.') > -1) return 'Pinterest';
+if(u.indexOf('snapchat.com') > -1) return 'Snapchat';
+if(u.indexOf('reddit.com') > -1) return 'Reddit';
+if(u.indexOf('capcut.com') > -1) return 'CapCut';
+if(u.indexOf('bilibili.com') > -1 || u.indexOf('b23.tv') > -1) return 'Bilibili';
+return 'Lainnya';
+}
+function onInput(){
+var url = extractUrl(input.value);
+if(url){
+detectEl.innerHTML = '🔗 Link terdeteksi: <b>' + url.replace(/</g,'&lt;') + '</b> <span class="plat">(' + platformOf(url) + ')</span>';
+} else if(input.value.trim()){
+detectEl.textContent = 'Belum ada link yang terdeteksi di teks ini.';
+} else {
+detectEl.textContent = '';
+}
+}
+input.addEventListener('input', onInput);
+
+function fmtDur(s){
+if(s == null) return '';
+s = Math.round(s);
+return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0');
+}
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function saveHistory(item){
+try{
+var h = JSON.parse(localStorage.getItem('sd_history') || '[]');
+h = h.filter(function(x){ return x.url!== item.url;});
+h.unshift(item);
+localStorage.setItem('sd_history', JSON.stringify(h.slice(0,20)));
+renderHistory();
+}catch(e){}
+}
+function renderHistory(){
+var box = document.getElementById('history');
+var h = [];
+try{ h = JSON.parse(localStorage.getItem('sd_history') || '[]');}catch(e){}
+if(!h.length){ box.innerHTML = '<p style="color:var(--muted);font-size:14px">Belum ada riwayat. Riwayat tersimpan di browser kamu saja (localStorage).</p>'; return;}
+box.innerHTML = '';
+h.forEach(function(item, i){
+var d = document.createElement('div');
+d.className = 'hist-item';
+d.innerHTML = '<span><b>' + esc(item.platform) + '</b> — ' + esc(item.title || item.url) + '<br><span style="color:var(--muted);font-size:12px">' + esc(item.time) + '</span></span>';
+var again = document.createElement('button'); again.textContent = 'Buka lagi';
+again.onclick = function(){ input.value = item.url; onInput(); resolve(); window.scrollTo({top:0, behavior:'smooth'});};
+var del = document.createElement('button'); del.textContent = 'Hapus'; del.className = 'del';
+del.onclick = function(){
+var hh = JSON.parse(localStorage.getItem('sd_history') || '[]');
+hh.splice(i,1); localStorage.setItem('sd_history', JSON.stringify(hh)); renderHistory();
+};
+var wrap = document.createElement('span'); wrap.appendChild(again); wrap.appendChild(document.createTextNode(' · ')); wrap.appendChild(del);
+d.appendChild(wrap); box.appendChild(d);
+});
+}
+document.getElementById('btnClearHist').onclick = function(){ localStorage.removeItem('sd_history'); renderHistory();};
+
+async function resolve(){
+var text = input.value;
+var url = extractUrl(text);
+errorEl.style.display = 'none'; resultEl.style.display = 'none';
+if(!url){ errorEl.textContent = 'Tidak ditemukan link di teks yang ditempel. Tempel link video atau teks share dari aplikasi.'; errorEl.style.display = 'block'; return;}
+btnGo.disabled = true; loadingEl.style.display = 'block';
+try{
+var res = await fetch('/api/resolve', {
+method: 'POST',
+headers: {'Content-Type':'application/json'},
+body: JSON.stringify({ url: text})
+});
+var data = await res.json();
+if(data.status!== 'ok'){
+errorEl.textContent = (data.detectedUrl? 'Link terdeteksi: ' + data.detectedUrl + ' — ': '') + (data.message || 'Link tidak bisa dibaca.');
+errorEl.style.display = 'block'; return;
+}
+document.getElementById('platBadge').textContent = data.platformLabel || data.platform;
+document.getElementById('title').textContent = data.title || '(tanpa judul)';
+var meta = [];
+if(data.author) meta.push(data.author);
+if(data.durationSec!= null) meta.push('Durasi ' + fmtDur(data.durationSec));
+if(data.detectedUrl) meta.push(data.detectedUrl);
+document.getElementById('meta').textContent = meta.join(' · ');
+var thumb = document.getElementById('thumb');
+if(data.thumbnailUrl){ thumb.src = data.thumbnailUrl; thumb.style.display = '';} else { thumb.style.display = 'none';}
+var vbox = document.getElementById('variants'); vbox.innerHTML = '';
+data.variants.forEach(function(v){
+var row = document.createElement('div'); row.className = 'var';
+var t = document.createElement('div'); t.className = 't';
+t.innerHTML = '<b>' + esc(v.label) + '</b><span>' + esc(v.detail || v.kind) + '</span>';
+var right = document.createElement('div');
+var a = document.createElement('a');
+a.href = v.url; a.textContent = 'Simpan'; a.target = '_blank'; a.rel = 'noopener';
+a.setAttribute('download','');
+var p = document.createElement('a');
+p.href = '/api/download?url=' + encodeURIComponent(v.url) + '&filename=' + encodeURIComponent((data.title || 'video').replace(/[^\w\-]/g,'').slice(0,40) || 'video') + (v.kind === 'audio'? '.mp3': '.mp4');
+p.textContent = 'via proxy'; p.className = 'proxy'; p.target = '_blank'; p.rel = 'noopener';
+right.appendChild(a); right.appendChild(p);
+row.appendChild(t); row.appendChild(right); vbox.appendChild(row);
+});
+resultEl.style.display = 'block';
+saveHistory({ url: data.detectedUrl, title: data.title, platform: data.platformLabel || data.platform, time: new Date().toLocaleString('id-ID')});
+}catch(e){
+errorEl.textContent = 'Gagal menghubungi server. Periksa koneksi lalu coba lagi.';
+errorEl.style.display = 'block';
+}finally{
+btnGo.disabled = false; loadingEl.style.display = 'none';
+}
+}
+btnGo.onclick = resolve;
+input.addEventListener('keydown', function(e){ if((e.ctrlKey || e.metaKey) && e.key === 'Enter'){ resolve();}});
+document.getElementById('btnClear').onclick = function(){ input.value=''; onInput(); errorEl.style.display='none'; resultEl.style.display='none'; input.focus();};
+document.getElementById('btnPaste').onclick = async function(){
+try{ var t = await navigator.clipboard.readText(); if(t){ input.value = t; onInput();}}
+catch(e){ input.focus(); document.execCommand('paste');}
+};
+document.querySelectorAll('[data-ex]').forEach(function(b){
+b.onclick = function(){ input.value = b.getAttribute('data-ex'); onInput(); resolve();};
+});
+renderHistory();
+})();
+</script>
+</body>
+</html>
