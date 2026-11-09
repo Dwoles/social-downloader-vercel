@@ -1,0 +1,1 @@
+{"description":"Web downloader video TikTok & Douyin tanpa watermark (mirip TTGet). Frontend statis + serverless functions Node, tanpa dependensi.","engines":{"node":">=18"},"name":"social-media-video-downloader","private":true,"scripts":{"dev":"vercel dev","test":"node test/run-tests.cjs"},"version":"1.0.0"}

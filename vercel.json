@@ -1,0 +1,1 @@
+{"$schema":"https://openapi.vercel.sh/vercel.json","functions":{"api/download.js":{"maxDuration":10},"api/resolve.js":{"maxDuration":10}}}
